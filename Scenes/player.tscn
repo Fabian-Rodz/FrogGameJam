@@ -1,9 +1,8 @@
-[gd_scene load_steps=15 format=3 uid="uid://ku753tmr5yi4"]
+[gd_scene load_steps=14 format=3 uid="uid://ku753tmr5yi4"]
 
 [ext_resource type="Script" uid="uid://cf14ousyd1cvs" path="res://Scripts/player.gd" id="1_cvnsp"]
 [ext_resource type="Texture2D" uid="uid://b5y1rswbqt7gn" path="res://Assets/frog_spritesheets/frog_green_spritesheet.png" id="2_6t5aa"]
 [ext_resource type="Texture2D" uid="uid://bsrq5em8t11cf" path="res://Assets/frog_spritesheets/frog_brown_spritesheet.png" id="3_6t5aa"]
-[ext_resource type="Script" uid="uid://d2jiu0a3rm1mh" path="res://Scripts/area_2d.gd" id="4_vgqql"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3smsa"]
 atlas = ExtResource("2_6t5aa")
@@ -110,7 +109,6 @@ shape = SubResource("RectangleShape2D_6t5aa")
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 4
 collision_mask = 2
-script = ExtResource("4_vgqql")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(0.5, 2.75)
@@ -123,5 +121,6 @@ offset_top = -2.0
 offset_right = 7.0
 offset_bottom = 7.0
 
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="area_exited" from="Area2D" to="." method="_on_area_2d_area_exited"]
 [connection signal="body_entered" from="Area2D" to="Area2D" method="_on_body_entered"]
-[connection signal="can_move" from="Area2D" to="." method="_on_area_2d_can_move"]
