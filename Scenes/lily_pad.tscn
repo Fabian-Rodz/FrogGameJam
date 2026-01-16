@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://dqtfv2vjsfrwh"]
+
+[ext_resource type="Script" uid="uid://dk1fjsr7b6uwy" path="res://Scripts/lily_pad.gd" id="1_1lohk"]
+[ext_resource type="Texture2D" uid="uid://ckvk8w0edowxi" path="res://Assets/World/free_pixel_16_woods.png" id="2_o1sxm"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_u36nh"]
+size = Vector2(17, 14)
+
+[node name="LilyPad" type="Area2D"]
+collision_layer = 2
+collision_mask = 5
+script = ExtResource("1_1lohk")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_o1sxm")
+region_enabled = true
+region_rect = Rect2(239.62212, 131.2794, 16.892502, 13.871994)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.5, 0)
+shape = SubResource("RectangleShape2D_u36nh")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
