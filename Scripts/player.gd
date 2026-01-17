@@ -5,6 +5,8 @@ var moving = false
 var input_dir
 var facing_right = true
 var can_move = false
+var game_over = false
+var cur_lily_pad = null
 @onready var move_speed = 0.30
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 
@@ -16,6 +18,7 @@ func _ready() -> void:
 
 # Input detection
 func _physics_process(delta: float) -> void:
+	check_collision()
 	input_dir = Vector2.ZERO
 	if Input.is_action_pressed("move_up"):
 		input_dir = Vector2(0,-1)
@@ -69,9 +72,19 @@ func in_bounds(pos) -> bool:
 # Detects collision with lily pads
 func _on_area_2d_area_entered(area: Area2D) -> void:
 	can_move = true
+	cur_lily_pad = area
+	check_collision()
 	print('collision') # Replace with function body.
 
 # Detects if lily pad is missing
 func _on_area_2d_area_exited(area: Area2D) -> void:
 	can_move = false
+	cur_lily_pad = null
 	print("lily pad is gone")
+	print("Game over : ", game_over)
+	
+func check_collision():
+	if cur_lily_pad != null:
+		if cur_lily_pad.missing:
+			can_move = false
+			game_over = true

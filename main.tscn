@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://bt8s40000500t"]
+[gd_scene load_steps=7 format=3 uid="uid://bt8s40000500t"]
 
 [ext_resource type="Texture2D" uid="uid://ckvk8w0edowxi" path="res://Assets/World/free_pixel_16_woods.png" id="1_0xm2m"]
+[ext_resource type="Script" uid="uid://dey0niav4syiu" path="res://Scripts/main.gd" id="1_1bvp3"]
 [ext_resource type="PackedScene" uid="uid://ku753tmr5yi4" path="res://Scenes/player.tscn" id="1_ig7tw"]
 [ext_resource type="PackedScene" uid="uid://dqtfv2vjsfrwh" path="res://Scenes/lily_pad.tscn" id="3_h2yge"]
 
@@ -149,6 +150,7 @@ texture = ExtResource("1_0xm2m")
 sources/0 = SubResource("TileSetAtlasSource_h2yge")
 
 [node name="Main" type="Node2D"]
+script = ExtResource("1_1bvp3")
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_ig7tw")
@@ -241,5 +243,6 @@ position = Vector2(88, 218)
 [node name="LilyPad25" parent="LilyPads" instance=ExtResource("3_h2yge")]
 position = Vector2(24, 218)
 
-[node name="CharacterBody2D" parent="." instance=ExtResource("1_ig7tw")]
+[node name="Frog" parent="." instance=ExtResource("1_ig7tw")]
+z_index = 1
 position = Vector2(22, 20)

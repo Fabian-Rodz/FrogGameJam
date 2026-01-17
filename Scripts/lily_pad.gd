@@ -3,8 +3,9 @@ extends Area2D
 
 @onready var sprite : Sprite2D = $Sprite2D
 @onready var collision : CollisionShape2D = $CollisionShape2D
-@onready var fade_speed = 1
+@onready var fade_speed = 0.3
 var fade = false
+var missing = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -21,9 +22,11 @@ func _process(delta: float) -> void:
 		sprite.modulate = color
 		
 		if color.a == 0.0:
-			collision.disabled = true
 			sprite.hide()
 			fade = false
+			missing = true
+	
+			
 		
 func _on_body_entered(body: Node2D) -> void:
 	fade = true
