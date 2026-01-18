@@ -1,0 +1,93 @@
+[gd_scene load_steps=12 format=3 uid="uid://c4stkqts7b8p3"]
+
+[ext_resource type="Texture2D" uid="uid://bpqcqmnt4gs4t" path="res://Assets/Enemies/snake.png" id="1_16tbv"]
+[ext_resource type="Script" uid="uid://gbbe7pq8vr26" path="res://Scripts/snake.gd" id="1_pox6b"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pox6b"]
+atlas = ExtResource("1_16tbv")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rku0m"]
+atlas = ExtResource("1_16tbv")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lmvgn"]
+atlas = ExtResource("1_16tbv")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pnn8g"]
+atlas = ExtResource("1_16tbv")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p48en"]
+atlas = ExtResource("1_16tbv")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6tu6o"]
+atlas = ExtResource("1_16tbv")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v1exp"]
+atlas = ExtResource("1_16tbv")
+region = Rect2(384, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_lpoka"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pox6b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rku0m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lmvgn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pnn8g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pnn8g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p48en")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6tu6o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v1exp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pox6b")
+}],
+"loop": true,
+"name": &"slither",
+"speed": 14.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_rjxvt"]
+radius = 5.0
+height = 48.0
+
+[node name="Snake" type="RigidBody2D"]
+collision_layer = 8
+collision_mask = 0
+gravity_scale = 0.0
+script = ExtResource("1_pox6b")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_lpoka")
+animation = &"slither"
+autoplay = "slither"
+frame_progress = 0.05680011
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 11)
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_rjxvt")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+rect = Rect2(-29, 2, 58, 17)
+
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

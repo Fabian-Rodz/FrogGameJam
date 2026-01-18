@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://ku753tmr5yi4"]
+[gd_scene load_steps=16 format=3 uid="uid://ku753tmr5yi4"]
 
 [ext_resource type="Script" uid="uid://cf14ousyd1cvs" path="res://Scripts/player.gd" id="1_cvnsp"]
 [ext_resource type="Texture2D" uid="uid://b5y1rswbqt7gn" path="res://Assets/frog_spritesheets/frog_green_spritesheet.png" id="2_6t5aa"]
@@ -19,6 +19,14 @@ region = Rect2(0, 0, 33, 32)
 [sub_resource type="AtlasTexture" id="AtlasTexture_fkybt"]
 atlas = ExtResource("2_6t5aa")
 region = Rect2(0, 32, 33, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pu2lt"]
+atlas = ExtResource("3_6t5aa")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6t5aa"]
+atlas = ExtResource("3_6t5aa")
+region = Rect2(96, 32, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8erm5"]
 atlas = ExtResource("3_6t5aa")
@@ -65,6 +73,22 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_pu2lt")
+}],
+"loop": true,
+"name": &"red_hit_grounded",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6t5aa")
+}],
+"loop": true,
+"name": &"red_hit_moving",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_8erm5")
 }, {
 "duration": 1.0,
@@ -92,14 +116,14 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6t5aa"]
 size = Vector2(13, 9.5)
 
-[node name="CharacterBody2D" type="CharacterBody2D"]
+[node name="player" type="CharacterBody2D"]
 collision_mask = 2
 script = ExtResource("1_cvnsp")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_x3wgy")
-animation = &"green_idle"
+animation = &"red_hit_moving"
 autoplay = "red_idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -108,13 +132,13 @@ shape = SubResource("RectangleShape2D_6t5aa")
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 4
-collision_mask = 2
+collision_mask = 10
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="HopCollision" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(0.5, 2.75)
 shape = SubResource("RectangleShape2D_6t5aa")
 debug_color = Color(0.90675074, 0.0001280278, 0.744027, 0.41960785)
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
 [connection signal="area_exited" from="Area2D" to="." method="_on_area_2d_area_exited"]
-[connection signal="body_entered" from="Area2D" to="Area2D" method="_on_body_entered"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
