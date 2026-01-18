@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://bt8s40000500t"]
+[gd_scene load_steps=9 format=3 uid="uid://bt8s40000500t"]
 
 [ext_resource type="Texture2D" uid="uid://ckvk8w0edowxi" path="res://Assets/World/free_pixel_16_woods.png" id="1_0xm2m"]
 [ext_resource type="Script" uid="uid://dey0niav4syiu" path="res://Scripts/main.gd" id="1_1bvp3"]
 [ext_resource type="PackedScene" uid="uid://ku753tmr5yi4" path="res://Scenes/player.tscn" id="1_ig7tw"]
 [ext_resource type="PackedScene" uid="uid://dqtfv2vjsfrwh" path="res://Scenes/lily_pad.tscn" id="3_h2yge"]
+[ext_resource type="PackedScene" uid="uid://c4stkqts7b8p3" path="res://Scenes/snake.tscn" id="4_lquwl"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_h2yge"]
 texture = ExtResource("1_0xm2m")
@@ -149,8 +150,15 @@ texture = ExtResource("1_0xm2m")
 [sub_resource type="TileSet" id="TileSet_ig7tw"]
 sources/0 = SubResource("TileSetAtlasSource_h2yge")
 
+[sub_resource type="Curve2D" id="Curve2D_1bvp3"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -32, 0, 0, 0, 0, 0, 416, 0, 0, 0, 0, 0, 416, 240, 0, 0, 0, 0, -32, 240, 0, 0, 0, 0, -32, 0)
+}
+point_count = 5
+
 [node name="Main" type="Node2D"]
 script = ExtResource("1_1bvp3")
+snake_scene = ExtResource("4_lquwl")
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_ig7tw")
@@ -246,3 +254,23 @@ position = Vector2(24, 218)
 [node name="Frog" parent="." instance=ExtResource("1_ig7tw")]
 z_index = 1
 position = Vector2(22, 20)
+
+[node name="SnakeTimer" type="Timer" parent="."]
+
+[node name="SnakePath" type="Path2D" parent="."]
+curve = SubResource("Curve2D_1bvp3")
+
+[node name="SnakeSpawnLocation" type="PathFollow2D" parent="SnakePath"]
+position = Vector2(-32, 0)
+
+[node name="StartTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="DeathTimer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[connection signal="die" from="Frog" to="." method="game_over"]
+[connection signal="timeout" from="SnakeTimer" to="." method="_on_snake_timer_timeout"]
+[connection signal="timeout" from="StartTimer" to="." method="_on_start_timer_timeout"]
+[connection signal="timeout" from="DeathTimer" to="." method="_on_death_timer_timeout"]
