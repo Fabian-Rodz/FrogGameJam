@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://bt8s40000500t"]
+[gd_scene load_steps=13 format=3 uid="uid://b4djujf0k325x"]
 
 [ext_resource type="Texture2D" uid="uid://ckvk8w0edowxi" path="res://Assets/World/free_pixel_16_woods.png" id="1_0xm2m"]
 [ext_resource type="Script" uid="uid://dey0niav4syiu" path="res://Scripts/main.gd" id="1_1bvp3"]
@@ -9,7 +9,7 @@
 [ext_resource type="Script" uid="uid://cgjci3chyi67y" path="res://ui.gd" id="6_272bh"]
 [ext_resource type="AudioStream" uid="uid://cag1efw2ydtv1" path="res://Scenes/Royalty Free Music __ Fantasy D&D Swamp Music and Ambience __ Blightfrog Bog.mp3" id="8_5vw27"]
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_h2yge"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5vw27"]
 texture = ExtResource("1_0xm2m")
 18:0/0 = 0
 19:0/0 = 0
@@ -151,11 +151,17 @@ texture = ExtResource("1_0xm2m")
 5:10/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_ig7tw"]
-sources/0 = SubResource("TileSetAtlasSource_h2yge")
+sources/0 = SubResource("TileSetAtlasSource_5vw27")
 
 [sub_resource type="Curve2D" id="Curve2D_1bvp3"]
 _data = {
 "points": PackedVector2Array(0, 0, 0, 0, -32, 0, 0, 0, 0, 0, 416, 0, 0, 0, 0, 0, 416, 240, 0, 0, 0, 0, -32, 240, 0, 0, 0, 0, -32, 0)
+}
+point_count = 5
+
+[sub_resource type="Curve2D" id="Curve2D_kek77"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -32, 0, 0, 0, 0, 0, 416, 1, 0, 0, 0, 0, 416, 240, 0, 0, 0, 0, -32, 240, 0, 0, 0, 0, -32, 0)
 }
 point_count = 5
 
@@ -323,6 +329,16 @@ text = "Replay"
 stream = ExtResource("8_5vw27")
 autoplay = true
 parameters/looping = false
+
+[node name="DragonflyPath" type="Path2D" parent="."]
+curve = SubResource("Curve2D_kek77")
+
+[node name="DragonflySpawnLocation" type="PathFollow2D" parent="DragonflyPath"]
+position = Vector2(-32, 0)
+rotation = 0.002232139
+
+[node name="DragonflyTimer" type="Timer" parent="."]
+wait_time = 1.5
 
 [connection signal="die" from="Frog" to="." method="game_over"]
 [connection signal="timeout" from="SnakeTimer" to="." method="_on_snake_timer_timeout"]
