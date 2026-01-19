@@ -1,0 +1,61 @@
+[gd_scene load_steps=9 format=3 uid="uid://cs1a7vo02jrti"]
+
+[ext_resource type="Script" path="res://Scripts/dragonfly.gd" id="1_g1j0t"]
+[ext_resource type="Texture2D" path="res://Assets/dragonfly_sprite/Dragonfly Sprite Sheet.png" id="2_4cf4k"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m0dwc"]
+atlas = ExtResource("2_4cf4k")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wo0kh"]
+atlas = ExtResource("2_4cf4k")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mx7tr"]
+atlas = ExtResource("2_4cf4k")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k7c55"]
+atlas = ExtResource("2_4cf4k")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_mscdb"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m0dwc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wo0kh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mx7tr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k7c55")
+}],
+"loop": true,
+"name": &"flying",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ev3ar"]
+size = Vector2(17, 15)
+
+[node name="dragonfly" type="RigidBody2D"]
+collision_mask = 0
+gravity_scale = 0.0
+script = ExtResource("1_g1j0t")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_mscdb")
+animation = &"flying"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, 0.5)
+shape = SubResource("RectangleShape2D_ev3ar")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+rect = Rect2(-9, -7, 17, 15)
+
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

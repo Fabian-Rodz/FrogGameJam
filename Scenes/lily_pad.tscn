@@ -20,4 +20,8 @@ region_rect = Rect2(239.62212, 131.2794, 16.892502, 13.871994)
 position = Vector2(0.5, 0)
 shape = SubResource("RectangleShape2D_u36nh")
 
+[node name="Spawn" type="Timer" parent="."]
+wait_time = 4.0
+
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="timeout" from="Spawn" to="." method="_on_spawn_timeout"]
