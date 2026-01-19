@@ -34,7 +34,6 @@ func _physics_process(delta: float) -> void:
 		move()
 	elif Input.is_action_pressed("move_right"):
 		input_dir = Vector2(1,0)
-		
 		if (!facing_right and !moving and can_move):
 			sprite.flip_h = true
 			facing_right = true
