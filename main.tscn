@@ -1,10 +1,13 @@
-[gd_scene load_steps=9 format=3 uid="uid://bt8s40000500t"]
+[gd_scene load_steps=12 format=3 uid="uid://bt8s40000500t"]
 
 [ext_resource type="Texture2D" uid="uid://ckvk8w0edowxi" path="res://Assets/World/free_pixel_16_woods.png" id="1_0xm2m"]
 [ext_resource type="Script" uid="uid://dey0niav4syiu" path="res://Scripts/main.gd" id="1_1bvp3"]
 [ext_resource type="PackedScene" uid="uid://ku753tmr5yi4" path="res://Scenes/player.tscn" id="1_ig7tw"]
 [ext_resource type="PackedScene" uid="uid://dqtfv2vjsfrwh" path="res://Scenes/lily_pad.tscn" id="3_h2yge"]
 [ext_resource type="PackedScene" uid="uid://c4stkqts7b8p3" path="res://Scenes/snake.tscn" id="4_lquwl"]
+[ext_resource type="Texture2D" uid="uid://p4nyp2na1k4o" path="res://Assets/swamp.jpg" id="6_7mycd"]
+[ext_resource type="Script" uid="uid://cgjci3chyi67y" path="res://ui.gd" id="6_272bh"]
+[ext_resource type="AudioStream" uid="uid://cag1efw2ydtv1" path="res://Scenes/Royalty Free Music __ Fantasy D&D Swamp Music and Ambience __ Blightfrog Bog.mp3" id="8_5vw27"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_h2yge"]
 texture = ExtResource("1_0xm2m")
@@ -270,7 +273,60 @@ one_shot = true
 wait_time = 3.0
 one_shot = true
 
+[node name="UI" type="CanvasLayer" parent="."]
+process_mode = 3
+script = ExtResource("6_272bh")
+
+[node name="Background" type="ColorRect" parent="UI"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1.6530219e-05, 1.6530223e-05, 1.6530223e-05, 1)
+
+[node name="TitleImage" type="TextureRect" parent="UI/Background"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("6_7mycd")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/Background"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -48.0
+offset_top = -20.0
+offset_right = 48.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="StartButton" type="Button" parent="UI/Background/VBoxContainer"]
+process_mode = 3
+layout_mode = 2
+text = "Start Game"
+
+[node name="RestartButton" type="Button" parent="UI/Background/VBoxContainer"]
+process_mode = 3
+layout_mode = 2
+text = "Replay"
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("8_5vw27")
+autoplay = true
+parameters/looping = false
+
 [connection signal="die" from="Frog" to="." method="game_over"]
 [connection signal="timeout" from="SnakeTimer" to="." method="_on_snake_timer_timeout"]
 [connection signal="timeout" from="StartTimer" to="." method="_on_start_timer_timeout"]
 [connection signal="timeout" from="DeathTimer" to="." method="_on_death_timer_timeout"]
+[connection signal="pressed" from="UI/Background/VBoxContainer/StartButton" to="UI" method="_on_start_button_pressed"]
+[connection signal="pressed" from="UI/Background/VBoxContainer/RestartButton" to="UI" method="_on_restart_button_pressed"]
