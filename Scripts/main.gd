@@ -4,6 +4,7 @@ extends Node2D
 @export var dragonfly_scene: PackedScene
 
 var score
+@onready var ui = $UI
 
 func _ready() -> void:
 	$StartTimer.start()
@@ -20,7 +21,7 @@ func game_over() -> void: # Connected to the "die" signal
 
 # Reload scene 3 seconds after death
 func _on_death_timer_timeout() -> void:
-	get_tree().reload_current_scene()
+	ui.show_game_over()
 
 # Determines intervals where mobs spawn
 func _on_start_timer_timeout() -> void:
@@ -34,16 +35,17 @@ func _on_snake_timer_timeout() -> void:
 	
 	var snake_spawn_location = $SnakePath/SnakeSpawnLocation
 	snake_spawn_location.progress_ratio = randf()
+	# Verifies snake spawn is not on the top or bottom of screen, only on the sides
 	while snake_spawn_location.position.x > -24 and snake_spawn_location.position.x < 400:
 		snake_spawn_location.progress_ratio = randf()
 	
 	snake.position = snake_spawn_location.position
-	print("Snake Position: " + str(snake.position))
 	
 	# Snakes slither directly towards the player
 	var slope = ($Frog.position.y - snake.position.y) / ($Frog.position.x - snake.position.x)
 	var direction = tan(slope)
 	
+	# Rotates the snake depending on if they spawn on the left or right
 	if snake_spawn_location.position.x <= -24:
 		snake.rotate_sprite(false)
 	elif snake_spawn_location.position.x >= 400:

@@ -25,8 +25,20 @@ func _process(delta: float) -> void:
 			sprite.hide()
 			fade = false
 			missing = true
+			$Spawn.start()
+			
+	elif !missing and sprite.modulate.a < 1.0:
+		var color = sprite.modulate
+		color.a = 1.0
+		sprite.modulate = color
+		sprite.show()
 	
 			
 		
 func _on_body_entered(body: Node2D) -> void:
 	fade = true
+
+
+func _on_spawn_timeout() -> void:
+	missing = false
+	sprite.show()
