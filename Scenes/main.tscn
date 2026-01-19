@@ -1,13 +1,14 @@
-[gd_scene load_steps=9 format=3 uid="uid://bt8s40000500t"]
+[gd_scene load_steps=11 format=3 uid="uid://bt8s40000500t"]
 
-[ext_resource type="Texture2D" uid="uid://ckvk8w0edowxi" path="res://Assets/World/free_pixel_16_woods.png" id="1_0xm2m"]
-[ext_resource type="Script" uid="uid://dey0niav4syiu" path="res://Scripts/main.gd" id="1_1bvp3"]
-[ext_resource type="PackedScene" uid="uid://ku753tmr5yi4" path="res://Scenes/player.tscn" id="1_ig7tw"]
-[ext_resource type="PackedScene" uid="uid://dqtfv2vjsfrwh" path="res://Scenes/lily_pad.tscn" id="3_h2yge"]
-[ext_resource type="PackedScene" uid="uid://c4stkqts7b8p3" path="res://Scenes/snake.tscn" id="4_lquwl"]
+[ext_resource type="Script" uid="uid://dey0niav4syiu" path="res://Scripts/main.gd" id="1_21xkr"]
+[ext_resource type="PackedScene" uid="uid://c4stkqts7b8p3" path="res://Scenes/snake.tscn" id="2_6bp64"]
+[ext_resource type="PackedScene" uid="uid://dhbf5mcw1wc4r" path="res://Scenes/dragonfly.tscn" id="3_344ge"]
+[ext_resource type="Texture2D" uid="uid://ckvk8w0edowxi" path="res://Assets/World/free_pixel_16_woods.png" id="4_ynf5e"]
+[ext_resource type="PackedScene" uid="uid://dqtfv2vjsfrwh" path="res://Scenes/lily_pad.tscn" id="5_hptm8"]
+[ext_resource type="PackedScene" uid="uid://ku753tmr5yi4" path="res://Scenes/player.tscn" id="6_d1ilt"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_h2yge"]
-texture = ExtResource("1_0xm2m")
+texture = ExtResource("4_ynf5e")
 18:0/0 = 0
 19:0/0 = 0
 2:1/0 = 0
@@ -156,9 +157,16 @@ _data = {
 }
 point_count = 5
 
+[sub_resource type="Curve2D" id="Curve2D_272bh"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -32, 0, 0, 0, 0, 0, 416, 1, 0, 0, 0, 0, 416, 240, 0, 0, 0, 0, -32, 240, 0, 0, 0, 0, -32, 0)
+}
+point_count = 5
+
 [node name="Main" type="Node2D"]
-script = ExtResource("1_1bvp3")
-snake_scene = ExtResource("4_lquwl")
+script = ExtResource("1_21xkr")
+snake_scene = ExtResource("2_6bp64")
+dragonfly_scene = ExtResource("3_344ge")
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_ig7tw")
@@ -176,82 +184,82 @@ zoom = Vector2(2.7, 2.7)
 
 [node name="LilyPads" type="Node" parent="."]
 
-[node name="LilyPad" parent="LilyPads" instance=ExtResource("3_h2yge")]
+[node name="LilyPad" parent="LilyPads" instance=ExtResource("5_hptm8")]
 position = Vector2(24, 26)
 
-[node name="LilyPad2" parent="LilyPads" instance=ExtResource("3_h2yge")]
+[node name="LilyPad2" parent="LilyPads" instance=ExtResource("5_hptm8")]
 position = Vector2(88, 26)
 
-[node name="LilyPad3" parent="LilyPads" instance=ExtResource("3_h2yge")]
+[node name="LilyPad3" parent="LilyPads" instance=ExtResource("5_hptm8")]
 position = Vector2(152, 26)
 
-[node name="LilyPad4" parent="LilyPads" instance=ExtResource("3_h2yge")]
+[node name="LilyPad4" parent="LilyPads" instance=ExtResource("5_hptm8")]
 position = Vector2(152, 26)
 
-[node name="LilyPad5" parent="LilyPads" instance=ExtResource("3_h2yge")]
+[node name="LilyPad5" parent="LilyPads" instance=ExtResource("5_hptm8")]
 position = Vector2(216, 26)
 
-[node name="LilyPad6" parent="LilyPads" instance=ExtResource("3_h2yge")]
+[node name="LilyPad6" parent="LilyPads" instance=ExtResource("5_hptm8")]
 position = Vector2(280, 26)
 
-[node name="LilyPad7" parent="LilyPads" instance=ExtResource("3_h2yge")]
+[node name="LilyPad7" parent="LilyPads" instance=ExtResource("5_hptm8")]
 position = Vector2(344, 26)
 
-[node name="LilyPad8" parent="LilyPads" instance=ExtResource("3_h2yge")]
+[node name="LilyPad8" parent="LilyPads" instance=ExtResource("5_hptm8")]
 position = Vector2(344, 90)
 
-[node name="LilyPad9" parent="LilyPads" instance=ExtResource("3_h2yge")]
+[node name="LilyPad9" parent="LilyPads" instance=ExtResource("5_hptm8")]
 position = Vector2(280, 90)
 
-[node name="LilyPad10" parent="LilyPads" instance=ExtResource("3_h2yge")]
+[node name="LilyPad10" parent="LilyPads" instance=ExtResource("5_hptm8")]
 position = Vector2(216, 90)
 
-[node name="LilyPad11" parent="LilyPads" instance=ExtResource("3_h2yge")]
+[node name="LilyPad11" parent="LilyPads" instance=ExtResource("5_hptm8")]
 position = Vector2(152, 90)
 
-[node name="LilyPad12" parent="LilyPads" instance=ExtResource("3_h2yge")]
+[node name="LilyPad12" parent="LilyPads" instance=ExtResource("5_hptm8")]
 position = Vector2(88, 90)
 
-[node name="LilyPad13" parent="LilyPads" instance=ExtResource("3_h2yge")]
+[node name="LilyPad13" parent="LilyPads" instance=ExtResource("5_hptm8")]
 position = Vector2(24, 90)
 
-[node name="LilyPad14" parent="LilyPads" instance=ExtResource("3_h2yge")]
+[node name="LilyPad14" parent="LilyPads" instance=ExtResource("5_hptm8")]
 position = Vector2(24, 154)
 
-[node name="LilyPad15" parent="LilyPads" instance=ExtResource("3_h2yge")]
+[node name="LilyPad15" parent="LilyPads" instance=ExtResource("5_hptm8")]
 position = Vector2(88, 154)
 
-[node name="LilyPad16" parent="LilyPads" instance=ExtResource("3_h2yge")]
+[node name="LilyPad16" parent="LilyPads" instance=ExtResource("5_hptm8")]
 position = Vector2(152, 154)
 
-[node name="LilyPad17" parent="LilyPads" instance=ExtResource("3_h2yge")]
+[node name="LilyPad17" parent="LilyPads" instance=ExtResource("5_hptm8")]
 position = Vector2(216, 154)
 
-[node name="LilyPad18" parent="LilyPads" instance=ExtResource("3_h2yge")]
+[node name="LilyPad18" parent="LilyPads" instance=ExtResource("5_hptm8")]
 position = Vector2(280, 154)
 
-[node name="LilyPad19" parent="LilyPads" instance=ExtResource("3_h2yge")]
+[node name="LilyPad19" parent="LilyPads" instance=ExtResource("5_hptm8")]
 position = Vector2(344, 154)
 
-[node name="LilyPad20" parent="LilyPads" instance=ExtResource("3_h2yge")]
+[node name="LilyPad20" parent="LilyPads" instance=ExtResource("5_hptm8")]
 position = Vector2(344, 218)
 
-[node name="LilyPad21" parent="LilyPads" instance=ExtResource("3_h2yge")]
+[node name="LilyPad21" parent="LilyPads" instance=ExtResource("5_hptm8")]
 position = Vector2(280, 218)
 
-[node name="LilyPad22" parent="LilyPads" instance=ExtResource("3_h2yge")]
+[node name="LilyPad22" parent="LilyPads" instance=ExtResource("5_hptm8")]
 position = Vector2(216, 218)
 
-[node name="LilyPad23" parent="LilyPads" instance=ExtResource("3_h2yge")]
+[node name="LilyPad23" parent="LilyPads" instance=ExtResource("5_hptm8")]
 position = Vector2(152, 218)
 
-[node name="LilyPad24" parent="LilyPads" instance=ExtResource("3_h2yge")]
+[node name="LilyPad24" parent="LilyPads" instance=ExtResource("5_hptm8")]
 position = Vector2(88, 218)
 
-[node name="LilyPad25" parent="LilyPads" instance=ExtResource("3_h2yge")]
+[node name="LilyPad25" parent="LilyPads" instance=ExtResource("5_hptm8")]
 position = Vector2(24, 218)
 
-[node name="Frog" parent="." instance=ExtResource("1_ig7tw")]
+[node name="Frog" parent="." instance=ExtResource("6_d1ilt")]
 z_index = 1
 position = Vector2(22, 20)
 
@@ -270,7 +278,18 @@ one_shot = true
 wait_time = 3.0
 one_shot = true
 
+[node name="DragonflyPath" type="Path2D" parent="."]
+curve = SubResource("Curve2D_272bh")
+
+[node name="DragonflySpawnLocation" type="PathFollow2D" parent="DragonflyPath"]
+position = Vector2(-32, 0)
+rotation = 0.002232139
+
+[node name="DragonflyTimer" type="Timer" parent="."]
+wait_time = 1.5
+
 [connection signal="die" from="Frog" to="." method="game_over"]
 [connection signal="timeout" from="SnakeTimer" to="." method="_on_snake_timer_timeout"]
 [connection signal="timeout" from="StartTimer" to="." method="_on_start_timer_timeout"]
 [connection signal="timeout" from="DeathTimer" to="." method="_on_death_timer_timeout"]
+[connection signal="timeout" from="DragonflyTimer" to="." method="_on_dragonfly_timer_timeout"]
