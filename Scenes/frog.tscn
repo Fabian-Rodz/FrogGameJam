@@ -116,7 +116,7 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6t5aa"]
 size = Vector2(13, 9.5)
 
-[node name="player" type="CharacterBody2D"]
+[node name="Frog" type="CharacterBody2D"]
 collision_mask = 2
 script = ExtResource("1_cvnsp")
 

@@ -1,13 +1,14 @@
-[gd_scene load_steps=12 format=3 uid="uid://bt8s40000500t"]
+[gd_scene load_steps=13 format=3 uid="uid://bt8s40000500t"]
 
 [ext_resource type="Texture2D" uid="uid://ckvk8w0edowxi" path="res://Assets/World/free_pixel_16_woods.png" id="1_0xm2m"]
 [ext_resource type="Script" uid="uid://dey0niav4syiu" path="res://Scripts/main.gd" id="1_1bvp3"]
-[ext_resource type="PackedScene" uid="uid://ku753tmr5yi4" path="res://Scenes/player.tscn" id="1_ig7tw"]
+[ext_resource type="PackedScene" uid="uid://ku753tmr5yi4" path="res://Scenes/frog.tscn" id="1_ig7tw"]
 [ext_resource type="PackedScene" uid="uid://dqtfv2vjsfrwh" path="res://Scenes/lily_pad.tscn" id="3_h2yge"]
 [ext_resource type="PackedScene" uid="uid://c4stkqts7b8p3" path="res://Scenes/snake.tscn" id="4_lquwl"]
 [ext_resource type="Texture2D" uid="uid://p4nyp2na1k4o" path="res://Assets/swamp.jpg" id="6_7mycd"]
 [ext_resource type="Script" uid="uid://cgjci3chyi67y" path="res://ui.gd" id="6_272bh"]
 [ext_resource type="AudioStream" uid="uid://cag1efw2ydtv1" path="res://Scenes/Royalty Free Music __ Fantasy D&D Swamp Music and Ambience __ Blightfrog Bog.mp3" id="8_5vw27"]
+[ext_resource type="PackedScene" uid="uid://b88jm20e80ede" path="res://Scenes/hud.tscn" id="9_kek77"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_h2yge"]
 texture = ExtResource("1_0xm2m")
@@ -255,23 +256,14 @@ position = Vector2(88, 218)
 position = Vector2(24, 218)
 
 [node name="Frog" parent="." instance=ExtResource("1_ig7tw")]
-z_index = 1
+z_index = 3
 position = Vector2(22, 20)
-
-[node name="SnakeTimer" type="Timer" parent="."]
 
 [node name="SnakePath" type="Path2D" parent="."]
 curve = SubResource("Curve2D_1bvp3")
 
 [node name="SnakeSpawnLocation" type="PathFollow2D" parent="SnakePath"]
 position = Vector2(-32, 0)
-
-[node name="StartTimer" type="Timer" parent="."]
-one_shot = true
-
-[node name="DeathTimer" type="Timer" parent="."]
-wait_time = 2.0
-one_shot = true
 
 [node name="UI" type="CanvasLayer" parent="."]
 process_mode = 3
@@ -324,9 +316,26 @@ stream = ExtResource("8_5vw27")
 autoplay = true
 parameters/looping = false
 
+[node name="Timers" type="Node" parent="."]
+
+[node name="SnakeTimer" type="Timer" parent="Timers"]
+
+[node name="StartTimer" type="Timer" parent="Timers"]
+one_shot = true
+
+[node name="DeathTimer" type="Timer" parent="Timers"]
+wait_time = 2.0
+one_shot = true
+
+[node name="ScoreTimer" type="Timer" parent="Timers"]
+wait_time = 1.25
+
+[node name="HUD" parent="." instance=ExtResource("9_kek77")]
+
 [connection signal="die" from="Frog" to="." method="game_over"]
-[connection signal="timeout" from="SnakeTimer" to="." method="_on_snake_timer_timeout"]
-[connection signal="timeout" from="StartTimer" to="." method="_on_start_timer_timeout"]
-[connection signal="timeout" from="DeathTimer" to="." method="_on_death_timer_timeout"]
 [connection signal="pressed" from="UI/Background/VBoxContainer/StartButton" to="UI" method="_on_start_button_pressed"]
 [connection signal="pressed" from="UI/Background/VBoxContainer/RestartButton" to="UI" method="_on_restart_button_pressed"]
+[connection signal="timeout" from="Timers/SnakeTimer" to="." method="_on_snake_timer_timeout"]
+[connection signal="timeout" from="Timers/StartTimer" to="." method="_on_start_timer_timeout"]
+[connection signal="timeout" from="Timers/DeathTimer" to="." method="_on_death_timer_timeout"]
+[connection signal="timeout" from="Timers/ScoreTimer" to="." method="_on_score_timer_timeout"]

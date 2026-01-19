@@ -2,26 +2,45 @@ extends Node2D
 
 @export var snake_scene: PackedScene
 @onready var ui = $UI
+var score = 0
+@onready var score_timer: Timer = $Timers/ScoreTimer
+@onready var snake_timer: Timer = $Timers/SnakeTimer
+@onready var start_timer: Timer = $Timers/StartTimer
+@onready var death_timer: Timer = $Timers/DeathTimer
+@onready var hud: CanvasLayer = $HUD
+
 
 func _ready() -> void:
-	$StartTimer.start()
+	start_timer.start()
+	score = 0
+	hud.update_score(score)
+	hud.hide()
 
 func game_over() -> void: # Connected to the "die" signal
-	$SnakeTimer.stop()
+	snake_timer.stop()
+	score_timer.stop()
 	$Frog/Area2D/HopCollision.set_deferred("disabled", true)
 	if $Frog.moving:
 		$Frog.sprite.play("red_hit_moving")
 	else:
 		$Frog.sprite.play("red_hit_grounded")
-	$DeathTimer.start()
+	death_timer.start()
 
 # Reload scene 3 seconds after death
 func _on_death_timer_timeout() -> void:
+	hud.hide()
 	ui.show_game_over()
 
 # Determines intervals where snakes spawn
 func _on_start_timer_timeout() -> void:
-	$SnakeTimer.start()
+	snake_timer.start()
+	hud.show()
+	score_timer.start()
+	print("Timers started")
+	
+func _on_score_timer_timeout() -> void:
+	score += 1
+	hud.update_score(score)
 
 # Spawns snake once the interval is reached
 func _on_snake_timer_timeout() -> void:
