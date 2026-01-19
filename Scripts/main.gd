@@ -1,11 +1,13 @@
 extends Node2D
 
 @export var snake_scene: PackedScene
+@onready var ui = $UI
 
 func _ready() -> void:
 	$StartTimer.start()
 
 func game_over() -> void: # Connected to the "die" signal
+	ui.show_game_over()
 	$SnakeTimer.stop()
 	$Frog/Area2D/HopCollision.set_deferred("disabled", true)
 	if $Frog.moving:
@@ -53,3 +55,11 @@ func _on_snake_timer_timeout() -> void:
 	snake.linear_velocity = velocity.rotated(direction)
 	
 	add_child(snake)
+
+
+func _on_start_button_pressed() -> void:
+	pass # Replace with function body.
+
+
+func _on_restart_button_pressed() -> void:
+	pass # Replace with function body.
