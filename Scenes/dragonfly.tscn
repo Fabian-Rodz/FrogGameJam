@@ -1,61 +1,60 @@
-[gd_scene load_steps=9 format=3 uid="uid://cs1a7vo02jrti"]
+[gd_scene load_steps=9 format=3 uid="uid://c8tu6mgnl3n6k"]
 
-[ext_resource type="Script" path="res://Scripts/dragonfly.gd" id="1_g1j0t"]
-[ext_resource type="Texture2D" path="res://Assets/dragonfly_sprite/Dragonfly Sprite Sheet.png" id="2_4cf4k"]
+[ext_resource type="Script" uid="uid://b6ktr6qweg4im" path="res://Scripts/dragonfly.gd" id="1_g1j0t"]
+[ext_resource type="Texture2D" uid="uid://x2vvcyiru4oj" path="res://Assets/dragonfly_sprite/Dragonfly Sprite Sheet.png" id="2_4cf4k"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_m0dwc"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_c82a0"]
 atlas = ExtResource("2_4cf4k")
 region = Rect2(0, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_wo0kh"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_g1j0t"]
 atlas = ExtResource("2_4cf4k")
 region = Rect2(32, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_mx7tr"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_4cf4k"]
 atlas = ExtResource("2_4cf4k")
 region = Rect2(64, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_k7c55"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_m0dwc"]
 atlas = ExtResource("2_4cf4k")
 region = Rect2(96, 0, 32, 32)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_mscdb"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_wo0kh"]
 animations = [{
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_c82a0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g1j0t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4cf4k")
+}, {
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_m0dwc")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_wo0kh")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_mx7tr")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_k7c55")
 }],
 "loop": true,
 "name": &"flying",
 "speed": 5.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ev3ar"]
-size = Vector2(17, 15)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mx7tr"]
+size = Vector2(17, 13)
 
-[node name="dragonfly" type="RigidBody2D"]
-collision_mask = 0
-gravity_scale = 0.0
+[node name="dragonfly" type="Area2D" groups=["dragonfly"]]
 script = ExtResource("1_g1j0t")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-sprite_frames = SubResource("SpriteFrames_mscdb")
+sprite_frames = SubResource("SpriteFrames_wo0kh")
 animation = &"flying"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-0.5, 0.5)
-shape = SubResource("RectangleShape2D_ev3ar")
+position = Vector2(-0.5, -0.5)
+shape = SubResource("RectangleShape2D_mx7tr")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
-rect = Rect2(-9, -7, 17, 15)
+rect = Rect2(-9, -7, 17, 13)
 
-[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

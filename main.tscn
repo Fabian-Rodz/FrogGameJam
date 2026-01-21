@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://bt8s40000500t"]
+[gd_scene load_steps=14 format=3 uid="uid://bt8s40000500t"]
 
 [ext_resource type="Texture2D" uid="uid://ckvk8w0edowxi" path="res://Assets/World/free_pixel_16_woods.png" id="1_0xm2m"]
 [ext_resource type="Script" uid="uid://dey0niav4syiu" path="res://Scripts/main.gd" id="1_1bvp3"]
@@ -157,6 +157,12 @@ sources/0 = SubResource("TileSetAtlasSource_h2yge")
 [sub_resource type="Curve2D" id="Curve2D_1bvp3"]
 _data = {
 "points": PackedVector2Array(0, 0, 0, 0, -32, 0, 0, 0, 0, 0, 416, 0, 0, 0, 0, 0, 416, 240, 0, 0, 0, 0, -32, 240, 0, 0, 0, 0, -32, 0)
+}
+point_count = 5
+
+[sub_resource type="Curve2D" id="Curve2D_kek77"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -31, 2, 0, 0, 0, 0, 415, 1, 0, 0, 0, 0, 415, 241, 0, 0, 0, 0, -32, 241, 0, 0, 0, 0, -31, 2)
 }
 point_count = 5
 
@@ -323,6 +329,8 @@ parameters/looping = false
 [node name="StartTimer" type="Timer" parent="Timers"]
 one_shot = true
 
+[node name="DragonflyTimer" type="Timer" parent="Timers"]
+
 [node name="DeathTimer" type="Timer" parent="Timers"]
 wait_time = 2.0
 one_shot = true
@@ -332,10 +340,18 @@ wait_time = 1.25
 
 [node name="HUD" parent="." instance=ExtResource("9_kek77")]
 
+[node name="DragonflyPath" type="Path2D" parent="."]
+curve = SubResource("Curve2D_kek77")
+
+[node name="DragonflySpawnLocation" type="PathFollow2D" parent="DragonflyPath"]
+position = Vector2(-31, 2)
+rotation = -0.0022421486
+
 [connection signal="die" from="Frog" to="." method="game_over"]
 [connection signal="pressed" from="UI/Background/VBoxContainer/StartButton" to="UI" method="_on_start_button_pressed"]
 [connection signal="pressed" from="UI/Background/VBoxContainer/RestartButton" to="UI" method="_on_restart_button_pressed"]
 [connection signal="timeout" from="Timers/SnakeTimer" to="." method="_on_snake_timer_timeout"]
 [connection signal="timeout" from="Timers/StartTimer" to="." method="_on_start_timer_timeout"]
+[connection signal="timeout" from="Timers/DragonflyTimer" to="." method="_on_dragonfly_timer_timeout"]
 [connection signal="timeout" from="Timers/DeathTimer" to="." method="_on_death_timer_timeout"]
 [connection signal="timeout" from="Timers/ScoreTimer" to="." method="_on_score_timer_timeout"]
