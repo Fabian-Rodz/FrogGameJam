@@ -23,6 +23,7 @@ func game_over() -> void: # Connected to the "die" signal
 	dragonfly_timer.stop()
 	score_timer.stop()
 	$Frog/Area2D/HopCollision.set_deferred("disabled", true)
+	$Frog/CollisionShape2D.set_deferred("disabled", true)
 	if $Frog.moving:
 		$Frog.sprite.play("red_hit_moving")
 	else:
