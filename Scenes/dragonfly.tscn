@@ -43,6 +43,7 @@ animations = [{
 size = Vector2(17, 13)
 
 [node name="dragonfly" type="Area2D" groups=["dragonfly"]]
+z_index = 1
 script = ExtResource("1_g1j0t")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
