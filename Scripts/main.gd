@@ -10,9 +10,14 @@ var score = 0
 @onready var start_timer: Timer = $Timers/StartTimer
 @onready var death_timer: Timer = $Timers/DeathTimer
 @onready var hud: CanvasLayer = $HUD
+var decor_layer = 0
+@onready var tile_map: TileMap = $TileMap
+
 
 
 func _ready() -> void:
+	decor_layer = randi_range(3,5)
+	tile_map.set_layer_enabled(decor_layer, true)
 	start_timer.start()
 	score = 0
 	hud.update_score(score)
@@ -33,6 +38,7 @@ func game_over() -> void: # Connected to the "die" signal
 # Reload scene 3 seconds after death
 func _on_death_timer_timeout() -> void:
 	hud.hide()
+	tile_map.set_layer_enabled(decor_layer, false)
 	ui.show_game_over()
 
 # Determines intervals where snakes spawn
